@@ -1,0 +1,1 @@
+# LP_NoteAPP_Django
