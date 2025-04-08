@@ -1,0 +1,62 @@
+{% load static %}{# 静的ファイルを使うため、static タグを読み込む（後で説明） #}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5W9G62WG');
+        </script>
+        <!-- End Google Tag Manager -->
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+        {% block title %}
+        <title>あああ</title>
+        <meta name="description" content="WAO Let's Code Py（ワオレッツコードパイ）は、共通テスト科目「情報I」の対策アプリです。豊富な問題量で、過去問のない「情報I」の演習量不足を解消します。">
+        {% endblock %}
+        
+        <!--OGP-->
+        {% block ogp %}
+        <meta property="og:title" content="WAO Let's Code Py | 実践的な対策問題集で「情報I」を得意科目に！">        
+        <meta property="og:description" content="WAO Let's Code Py（ワオレッツコードパイ）は、共通テスト科目「情報I」の対策アプリです。豊富な問題量で、過去問のない「情報I」の演習量不足を解消します。">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://sales.wao-letscode-py.com/static/images/ogp/Py_OGP3.png">
+        <meta property="og:site_name" content="WAO Let's Code Py | 実践的な対策問題集で「情報I」を得意科目に！">
+        <meta property="og:locale" content="ja_JP">
+        <meta property="og:url" content="{% url 'index' %}">
+        {% endblock %}
+
+        <!--TwitterOGP-->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@let_wao">
+        {% block twitter_ogp %}{% endblock %}
+        {% block extra_style %}{% endblock %}
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5W9G62WG"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        {% block header %}
+        <header class="header">
+        </header>
+        {% endblock %}{# ヘッダー用ブロック #}
+
+
+        {% block content %}{% endblock %}{# 各ページのメイン要素用ブロック #}
+        {% block footer %}
+        <footer class="footer">
+        </footer>
+        {% endblock %}{# フッター用ブロック #}
+        {% block extra_js %}
+        <script src="{% static 'js/base.js' %}"></script>
+        {% endblock %}
+
+    </body>
+</html>

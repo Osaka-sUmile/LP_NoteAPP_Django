@@ -1,0 +1,242 @@
+{% extends "LP/base.html" %}{# 継承するテンプレートを指定 #}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="firstview">
+        <div class="firstview__container--flex">
+            <div class="firstview__title__container--column">
+                <div class="firstview__subhead--flex">
+                    <div class="firstview__subhead__box">
+                        <p>阪大生</p>
+                    </div>
+                    <p>のためのノート共有アプリ</p>
+                </div>
+                <h1 class="firstview__title">
+                    「ノート<span>を</span>共有<span>しない</span>？」
+                </h1>
+                <div class="firstview__subtitle">
+                    <span class="highlight">速く</span>
+                    <span class="highlight">楽に</span>
+                    <span class="highlight">効率的</span>
+                    <span>な学習を実現</span>
+                </div>
+                <button><a href="#">今すぐ始める</a></button>
+            </div>
+            <img src="images/firstview__ipad__image.png" alt="阪大生のお悩み" class="firstview__image" width="400" height="300">
+        </div>
+    </section>
+    <section class="firstview-sp" style="background-image: url('');">
+        <div class="section__wrapper">
+        <section class="introduction--column">
+            <div class="introduction__subhead--flex">
+                <h2 class="introduction__subhead__context">
+                    <span>阪大生</span>の皆さん<br>
+                    こんな <span class="highlight">お悩み</span> ありませんか？
+                </h2>
+            </div>
+            <div class="introduction__box--flex">
+                <div class="introduction__bullets--column">
+                    <ul>
+                        <li class="introduction__bullet-1--flex">
+                            <div class="bullet__checkmark--flex">
+                                <div class="checkmark__box"></div>
+                                <p>1</p>
+                            </div>
+                            <p class="bullet__text"><strong>テスト対策</strong>のポイントが分からない</p>
+                        </li>
+                        <li class="introduction__bullet-2--flex">
+                            <div class="bullet__checkmark--flex">
+                                <div class="checkmark__box"></div>
+                                <p>2</p>
+                            </div>
+                            <p class="bullet__text"><strong>内容<span>の</span>整理</strong>に時間がかかりすぎる</p>
+                        </li>
+                        <li class="introduction__bullet-3--flex">
+                            <div class="bullet__checkmark--flex">
+                                <div class="checkmark__box"></div>
+                                <p>3</p>
+                            </div>
+                            <p class="bullet__text"><strong>講義の板書が不完全</strong>で勉強しづらい</p>
+                        </li>
+                        <li class="introduction__bullet-4--flex">
+                            <div class="bullet__checkmark--flex">
+                                <div class="checkmark__box"></div>
+                                <p>4</p>
+                            </div>
+                            <p class="bullet__text"><strong>演習問題や過去問</strong>の解答がわからない<br></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="introduction__img">
+                    <img src="images/introduction_image.png" alt="阪大生のお悩み">
+                </div>
+            </div>
+        </section>
+        </div>
+    </section> 
+
+    <!-- animation -->
+    <section class="animation">
+        <h2 class="feature__main-title"><span class="highlight">NoteHero</span>で<span class="highlight">全て解決</span></h2>
+        <div class="animation__container">
+            <!-- 上部のノートの流れ -->
+            <div class="note-stream">
+                <div class="note"></div>
+                <div class="note"></div>
+                <div class="note"></div>
+                <div class="note"></div>
+                <div class="note"></div>
+                <div class="note"></div>
+            </div>
+            <!-- ユーザーエリア -->
+            <div class="users">
+                <div class="user user-left">
+                    <div class="user-icon"></div>
+                </div>
+                <div class="user user-right">
+                    <div class="user-icon"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- feature -->
+    <section class="feature" id="features">
+        <h2 class="section__main-title">Features</h2>
+        <p class="section__subtitle">アプリの特徴</p>
+        <div class="section__wrapper">
+            <div class="feature__points--flex">
+                <div class="feature__point">
+                    <div class="point__image">
+                        <img src="images/Mask group.png" alt="ノート検索">
+                    </div>
+                    <p class="point__label">POINT 01</p>
+                    <h3 class="point__title">過去問・先輩ノートで<br>確実な対策</h3>
+                    <p class="point__description">蓄積されたノートから、試験範囲を網羅的にカバー。点数アップに直結する情報が簡単に手に入る</p>
+                </div>
+                <div class="feature__point">
+                    <div class="point__image">
+                        <img src="images/Mask group.png" alt="ノート共有">
+                    </div>
+                    <p class="point__label">POINT 02</p>
+                    <h3 class="point__title">ノート共有で<br>効率的な学習を実現</h3>
+                    <p class="point__description">蓄積されたノートから、試験範囲を網羅的にカバー。点数アップに直結する情報が簡単に手に入る</p>
+                </div>
+                <div class="feature__point">
+                    <div class="point__image">
+                        <img src="images/Mask group.png" alt="学習サポート">
+                    </div>
+                    <p class="point__label">POINT 03</p>
+                    <h3 class="point__title">阪大生専用の<br>学習プラットフォーム</h3>
+                    <p class="point__description">蓄積されたノートから、試験範囲を網羅的にカバー。点数アップに直結する情報が簡単に手に入る</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- how to use -->
+    <section class="how-to-use" id="how-to-use">
+        <h1 class="section__main-title">How to use</h1>
+        <p class="section__subtitle">ご利用の流れ</p>
+        <div class="section__wrapper">
+            <div class="how-to-use__container">
+                <div class="how-to-use__box">
+                    <div class="how-to-use__step">
+                        <div class="step__number">
+                            <p>1</p>
+                        </div>
+                        <div class="step__content">
+                            <h2>条件検索から<br><strong>ノートを見つける</strong></h2>
+                            <div class="step__description">
+                                <p>自分の学部、学科、授業名などから<br>必要なノートを検索、閲覧可能<br>自分と同じ授業のノートが手に入る</p>
+                            </div>
+                        </div>
+                        <div class="step__image">
+                            <img src="images/ipad_image.png" alt="使い方1">
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="how-to-use__step">
+                        <div class="step__number">
+                            <p>2</p>
+                        </div>
+                        <div class="step__content">
+                            <h2>ノートをシェアして<br><strong>ポイントget</strong></h2>
+                            <div class="step__description">
+                                <p>ノートをアップロードしてポイントゲット<br>自分に必要な分だけポイントをノートに交換<br>まとめノートから1講義分まで</p>
+                            </div>
+                        </div>
+                        <div class="step__image">
+                            <img src="images/ipad_image.png" alt="使い方2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- function -->
+        <section class="function" id="functions">
+        <h2 class="section__main-title">Function</h2>
+        <p class="section__subtitle">アプリの機能</p>
+        <div class="section__wrapper">
+            
+        </div>
+        </section>
+
+    <!-- FAQセクション -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section__main-title">F&Q</h2>
+            <p class="section__subtitle">よくある質問</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>他大学の学生も利用できますか？</h3>
+                    <p>NoteHeroは阪大生専用のプラットフォームです。阪大生の学籍情報による認証が必要となります。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>ノートの品質はどのように担保されていますか？</h3>
+                    <p>投稿されたノートは運営チームによる確認を経て公開されます。また、ユーザーによる評価システムも導入しています。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>ポイントはどのように貯められますか？</h3>
+                    <p>ノートのアップロード、質問への回答、高評価の獲得などでポイントを入手できます。</p>
+                </div>
+                <div class="faq-item">
+                    <h3>著作権の取り扱いはどうなっていますか？</h3>
+                    <p>投稿されるノートは個人の学習記録に限定され、著作権に配慮したガイドラインに従って運営しています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ダウンロードセクション -->
+    <section class="download" id="download">
+        <div class="container">
+            <h2 class="section__main-title">今すぐ始めよう</h2>
+            <p class="download-description">阪大生の学習をもっと効率的に、もっと楽しく</p>
+            <div class="download-buttons">
+                <a href="#" class="app-store-button">
+                    <img src="images/app-store-badge.svg" alt="App Storeでダウンロード">
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}
