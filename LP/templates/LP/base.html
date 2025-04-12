@@ -1,4 +1,4 @@
-{% load static %}{# 静的ファイルを使うため、static タグを読み込む（後で説明） #}
+{% load static %}{# 静的ファイルを使うため、static タグを読み込む#}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -16,24 +16,24 @@
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
         {% block title %}
-        <title>あああ</title>
-        <meta name="description" content="WAO Let's Code Py（ワオレッツコードパイ）は、共通テスト科目「情報I」の対策アプリです。豊富な問題量で、過去問のない「情報I」の演習量不足を解消します。">
+        <title>ノートモ</title>
+        <meta name="description" content="ノートモはノートをシェアする大学生用教育アプリです。ノートをシェアすることで、試験勉強をより充実させましょう。">
         {% endblock %}
         
         <!--OGP-->
         {% block ogp %}
-        <meta property="og:title" content="WAO Let's Code Py | 実践的な対策問題集で「情報I」を得意科目に！">        
-        <meta property="og:description" content="WAO Let's Code Py（ワオレッツコードパイ）は、共通テスト科目「情報I」の対策アプリです。豊富な問題量で、過去問のない「情報I」の演習量不足を解消します。">
+        <meta property="og:title" content="ノートモで阪大生の学習を効率化！ノートをシェアして試験勉強を充実させよう！">        
+        <meta property="og:description" content="ノートモはノートをシェアする大学生用教育アプリです。ノートをシェアすることで、試験勉強をより充実させましょう。">
         <meta property="og:type" content="website">
-        <meta property="og:image" content="https://sales.wao-letscode-py.com/static/images/ogp/Py_OGP3.png">
-        <meta property="og:site_name" content="WAO Let's Code Py | 実践的な対策問題集で「情報I」を得意科目に！">
+        <meta property="og:image" content="">
+        <meta property="og:site_name" content="ノートモで阪大生の学習を効率化！ノートをシェアして試験勉強を充実させよう！">
         <meta property="og:locale" content="ja_JP">
         <meta property="og:url" content="{% url 'index' %}">
         {% endblock %}
 
         <!--TwitterOGP-->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@let_wao">
+        <meta name="twitter:site" content="">
         {% block twitter_ogp %}{% endblock %}
         {% block extra_style %}{% endblock %}
     </head>
@@ -52,6 +52,36 @@
         {% block content %}{% endblock %}{# 各ページのメイン要素用ブロック #}
         {% block footer %}
         <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h2>ノートモ</h2>
+                        <p>阪大生のノート シェア アプリ</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h3>サービス</h3>
+                            <ul>
+                                <li><a href="#features">特徴</a></li>
+                                <li><a href="#functions">機能</a></li>
+                                <li><a href="#faq">よくある質問</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>サポート</h3>
+                            <ul>
+                                <li><a href="#">ヘルプ</a></li>
+                                <li><a href="#">お問い合わせ</a></li>
+                                <li><a href="#">利用規約</a></li>
+                                <li><a href="#">プライバシーポリシー</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 ノートモ. All rights reserved.</p>
+                </div>
+            </div>
         </footer>
         {% endblock %}{# フッター用ブロック #}
         {% block extra_js %}
