@@ -5,3 +5,6 @@ def index(request):
 
 def PrivacyPolicy(request):
     return render(request, "LP/privacy_policy.html")
+
+def TermsOfService(request):
+    return render(request, "LP/terms_of_service.html")

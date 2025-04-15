@@ -60,19 +60,11 @@
                     </div>
                     <div class="footer-links">
                         <div class="footer-column">
-                            <h3>サービス</h3>
-                            <ul>
-                                <li><a href="#features">特徴</a></li>
-                                <li><a href="#functions">機能</a></li>
-                                <li><a href="#faq">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-column">
                             <h3>サポート</h3>
                             <ul>
-                                <li><a href="#">ヘルプ</a></li>
-                                <li><a href="#">お問い合わせ</a></li>
-                                <li><a href="#">利用規約</a></li>
+                                {% comment %} <li><a href="#">ヘルプ</a></li>
+                                <li><a href="#">お問い合わせ</a></li> {% endcomment %}
+                                <li><a href="{% url 'terms_of_service' %}">利用規約</a></li>
                                 <li><a href="{% url 'privacy_policy' %}">プライバシーポリシー</a></li>
                             </ul>
                         </div>
