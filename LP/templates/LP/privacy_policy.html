@@ -1,0 +1,38 @@
+{% extends "LP/base.html" %}{# 継承するテンプレートを指定 #}
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'css/mainpage.css' %}">
+<link rel="stylesheet" href="{% static 'css/privacy_policy.css' %}">
+{% endblock %}
+
+{% block header %}
+<header class="header">
+    <nav class="nav-container">
+        <div class="logo">ノートモ</div>
+        <div class="nav-links">
+            <a href="#features">特徴</a>
+            <a href="#functions">機能</a>
+            <a href="#faq">よくある質問</a>
+        </div>
+        <div class="header-cta">
+            <a href="#download" class="cta-button">無料お試し</a>
+        </div>
+    </nav>
+</header>
+{% endblock %}{# ヘッダー用ブロック #}
+
+{% block content %}
+<main>
+    <h1>プライバシーポリシーをかく</h1>
+    
+</main>
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script src="{% static '' %}"></script>
+{% endblock %}
