@@ -134,3 +134,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+try:
+    from .local_settings import *
+except ImportError:
+    # local_settings.py が存在しなくてもエラーにならないようにする
+    pass
