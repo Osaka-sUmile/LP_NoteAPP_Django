@@ -504,6 +504,8 @@ main {
     font-weight: 500;
     line-height: 1.6;
     padding-top: 0;
+    position: relative;
+    display: inline-block;
 }
 
 .bullet__text strong {
@@ -513,13 +515,6 @@ main {
     color: var(--primary-color);
     z-index: 1;
     margin-right: 4px;
-    flex-wrap: nowrap;
-}
-@media screen and (max-width: 480px) {
-    .bullet__text strong {
-        font-size: 1.6rem;
-    }
-    
 }
 
 /* マーカーアニメーションの基本スタイル */
@@ -561,7 +556,6 @@ main {
     opacity: 1;
     transform: translateY(0);
 }
-
 .bullet__text br {
     display: block;
     margin: 2px 0;
