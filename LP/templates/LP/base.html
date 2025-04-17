@@ -1,0 +1,87 @@
+{% load static %}{# 静的ファイルを使うため、static タグを読み込む#}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5W9G62WG');
+        </script>
+        <!-- End Google Tag Manager -->
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Klee+One&family=Noto+Sans+JP:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Qahiri&family=Zen+Kaku+Gothic+Antique&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Klee+One&family=Noto+Sans+JP:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Qahiri&family=Zen+Kaku+Gothic+Antique&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+
+        {% block title %}
+        <title>ノートモ</title>
+        <meta name="description" content="ノートモはノートをシェアする大学生用教育アプリです。ノートをシェアすることで、試験勉強をより充実させましょう。">
+        {% endblock %}
+        
+        <!--OGP-->
+        {% block ogp %}
+        <meta property="og:title" content="ノートモで阪大生の学習を効率化！ノートをシェアして試験勉強を充実させよう！">        
+        <meta property="og:description" content="ノートモはノートをシェアする大学生用教育アプリです。ノートをシェアすることで、試験勉強をより充実させましょう。">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="">
+        <meta property="og:site_name" content="ノートモで阪大生の学習を効率化！ノートをシェアして試験勉強を充実させよう！">
+        <meta property="og:locale" content="ja_JP">
+        <meta property="og:url" content="{% url 'index' %}">
+        {% endblock %}
+
+        <!--TwitterOGP-->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="">
+        {% block twitter_ogp %}{% endblock %}
+        {% block extra_style %}{% endblock %}
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5W9G62WG"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        {% block header %}
+        <header class="header">
+        </header>
+        {% endblock %}{# ヘッダー用ブロック #}
+
+
+        {% block content %}{% endblock %}{# 各ページのメイン要素用ブロック #}
+        {% block footer %}
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h2>ノートモ</h2>
+                        <p>阪大生のノート シェア アプリ</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h3>サポート</h3>
+                            <ul>
+                                {% comment %} <li><a href="#">ヘルプ</a></li>
+                                <li><a href="#">お問い合わせ</a></li> {% endcomment %}
+                                <li><a href="{% url 'terms_of_service' %}">利用規約</a></li>
+                                <li><a href="{% url 'privacy_policy' %}">プライバシーポリシー</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 ノートモ. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+        {% endblock %}{# フッター用ブロック #}
+        {% block extra_js %}
+        <script src="{% static 'js/base.js' %}"></script>
+        {% endblock %}
+
+    </body>
+</html>
