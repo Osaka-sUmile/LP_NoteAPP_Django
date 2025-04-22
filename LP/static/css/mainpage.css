@@ -193,6 +193,8 @@ main {
     z-index: -1;
 }
 
+
+
 .firstview__image {
     max-width: 500px;
     height: auto;
@@ -387,6 +389,10 @@ main {
         margin-top: 8px;
     }
 
+    .no-wrap {
+        white-space: nowrap;
+    }
+
     .bullet__checkmark--flex {
         margin-right: 16px;
     }
@@ -395,11 +401,6 @@ main {
     .animation {
         height: 300px;
         margin: 30px 0;
-    }
-
-    .note {
-        width: 50px;
-        height: 70px;
     }
 
     .note-stream {
@@ -489,11 +490,6 @@ main {
     .animation {
         height: 200px;
         margin: 20px 0;
-    }
-
-    .note {
-        width: 40px;
-        height: 55px;
     }
 
     .note-stream {
@@ -771,12 +767,11 @@ main {
 
 /* ノートの基本スタイル */
 .note {
-    width: 60px;
-    height: 85px;
+    /* width / height は JS から設定する */
+    position: absolute;
     background-color: white;
     border: 2px solid var(--primary-color);
     border-radius: 16px;
-    position: absolute;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     will-change: transform, opacity;
 }
@@ -858,20 +853,27 @@ main {
 
 .feature__main-title {
     text-align: center;
-    font-size: 2.4rem;
+    font-size: clamp(1.6rem, 2.0vw, 2.4rem);
     font-weight: bold;
     margin-top: 16px;
     margin-bottom: 16px;
     color: var(--text-dark);
+    padding: 0 16px;
+    transition: font-size 0.3s ease;
+    display: flex;
+    align-items: flex-end;  /* 下揃えにする */
+    justify-content: center;
+    gap: 8px;
 }
 
 .feature__main-title span.highlight {
     position: relative;
-    font-size: 3.6rem;
+    font-size: clamp(2.0rem, 2.0vw, 3.6rem);
     display: inline-block;
     padding: 4px 16px;
-    margin: 0 8px;
+    margin: 0;
     z-index: 1;
+    transition: font-size 0.3s ease;
 }
 
 .feature__main-title span.highlight:first-child {
@@ -1001,11 +1003,17 @@ main {
     }
 
     .feature__main-title {
-        font-size: 3.6rem;
+        font-size: clamp(2.0rem, 4.0vw, 3.2rem);
+        line-height: 1.6;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
     }
 
-    .feature__subtitle {
-        font-size: 2.0rem;
+    .feature__main-title span.highlight {
+        font-size: clamp(2.4rem, 4.0vw, 3.6rem);
+        padding: 2px 12px;
     }
 
     .introduction__box {
@@ -1122,6 +1130,31 @@ main {
         flex-direction: column;
         gap: 24px;
         text-align: center;
+        align-items: center;
+    }
+
+    .step__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .step__content h2 {
+        white-space: nowrap;
+        text-align: center;
+        width: 100%;
+    }
+
+    .step__description {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .step__description p {
+        text-align: center;
+        max-width: 80%;
     }
 
     .step__image {
@@ -1706,11 +1739,6 @@ main {
         margin: 30px 0;
     }
 
-    .note {
-        width: 50px;
-        height: 70px;
-    }
-
     .note-stream {
         top: 40px;
         height: 80px;
@@ -1733,11 +1761,6 @@ main {
         margin: 20px 0;
     }
 
-    .note {
-        width: 40px;
-        height: 55px;
-    }
-
     .note-stream {
         top: 30px;
         height: 60px;
@@ -1753,9 +1776,6 @@ main {
         height: 30px;
     }
 }
-
-
-
 
 
 
