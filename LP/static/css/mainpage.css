@@ -243,7 +243,7 @@ main {
     font-weight: 500;
 }
 
-.firstview button {
+.primary-cta-button {
     background: var(--primary-gradient);
     color: #FFFFFF;
     padding: 16px 32px;
@@ -256,13 +256,13 @@ main {
     transition: all 0.3s ease;
 }
 
-.firstview button:hover {
+.primary-cta-button:hover {
     opacity: 0.9;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(63, 100, 235, 0.2);
 }
 
-.firstview button a {
+.primary-cta-button a {
     color: #FFFFFF;
     text-decoration: none;
 }
@@ -399,7 +399,7 @@ main {
 
     /* アニメーション */
     .animation {
-        height: 300px;
+        height: 360px;
         margin: 30px 0;
     }
 
@@ -409,13 +409,18 @@ main {
     }
 
     .users {
-        bottom: 40px;
-        padding: 0 150px;
+        bottom: 20px;
+        height: 75px;
     }
 
     .user-icon {
-        width: 40px;
-        height: 40px;
+        width: 75px;
+        height: 75px;
+    }
+    .user-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     /* アバウト */
@@ -431,6 +436,17 @@ main {
     .about-us__image {
         width: 100%;
         max-width: 400px;
+    }
+
+    /* Reset user positions for tablet/mobile */
+    .user.user-left {
+        left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
+        /* transform: translateX(-50%); Inherited */
+    }
+
+    .user.user-right {
+        left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
+        /* transform: translateX(-50%); Inherited */
     }
 }
 
@@ -498,13 +514,13 @@ main {
     }
 
     .users {
-        bottom: 30px;
-        padding: 0 100px;
+        bottom: 10px;
+        height: 60px;
     }
 
     .user-icon {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
     }
 
     /* アバウト */
@@ -769,13 +785,19 @@ main {
 .note {
     /* width / height は JS から設定する */
     position: absolute;
-    background-color: white;
-    border: 2px solid var(--primary-color);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    will-change: transform, opacity;
+    background-color: white; /* Keep background for loading fallback */
+    /* border: 2px solid var(--primary-color); */ /* Removed border */
+    /* border-radius: 16px; */ /* Removed border-radius */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Keep shadow? Optional */
+    will-change: transform, opacity, left;
+    /* overflow: hidden; */ /* Removed overflow, no longer needed without border-radius */
 }
-
+.note img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Changed from fit to cover */
+    display: block; /* Remove potential extra space below image */
+}
 .note.rising {
     z-index: 2;
 }
@@ -795,18 +817,41 @@ main {
 /* ユーザーエリア */
 .users {
     position: absolute;
-    bottom: 60px;
+    bottom: 40px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 200px;
+    height: 90px;
+}
+
+.user {
+    position: absolute;
+    top: 0; /* Align top within the .users container */
+}
+
+.user.user-left {
+    left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
+    transform: translateX(-50%); /* Center the element */
+}
+
+.user.user-right {
+    left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
+    transform: translateX(-50%); /* Center the element */
+    /* Alternatively use right: 40% and adjust transform if needed */
 }
 
 .user-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #DDD;
+    width: 90px;
+    height: 90px;
+    /* background-color: #DDD; */ /* Remove background color */
     border-radius: 16px;
+    overflow: hidden; /* Clip the image to the rounded corners */
+}
+
+/* Style for the image inside user-icon */
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the area well */
+    display: block; /* Remove potential extra space */
 }
 
 /* アニメーションクラス */
@@ -1433,14 +1478,54 @@ main {
     color: #FFFFFF;
 }
 
+.download .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* コンテナ内の要素を中央揃え */
+}
+
 .download .section__main-title {
     color: #FFFFFF;
+}
+
+/* ダウンロードセクションのタイトル下の線を白に変更 */
+.download .section__main-title::after {
+    background-color: #FFFFFF; /* 中央の線を白に */
+}
+
+.download .section__main-title::before {
+    /* 両端の装飾部分を含む線のグラデーションを白に変更 */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent calc(50% - 35px),
+        #FFFFFF calc(50% - 35px), /* グラデーションの色を白に */
+        #FFFFFF calc(50% + 35px), /* グラデーションの色を白に */
+        transparent calc(50% + 35px),
+        transparent 100%
+    );
 }
 
 .download-description {
     text-align: center;
     font-size: 2.0rem;
     margin-bottom: 3.2rem;
+}
+
+
+.download__image-container {
+    margin-bottom: 3.2rem; /* 画像とボタンの間にスペースを追加 */
+    width: 100%;
+    display: flex; /* flexboxを使用して中央揃え */
+    justify-content: center; /* 水平方向中央揃え */
+}
+
+.download__image-container img {
+    /* max-width: 100%; */ /* Remove or comment out */
+    width: 100%; /* Make width flexible */
+    max-width: 500px; /* Set a maximum size (adjust as needed) */
+    height: auto; /* アスペクト比を維持 */
+    display: block; /* 余分なスペースを取り除く */
 }
 
 .download-buttons {
@@ -1556,6 +1641,11 @@ main {
     padding: 0 2rem;
 }
 
+@media screen and (max-width: 480px) {
+    .download-description {
+        font-size: 1.4rem;
+    }
+}
 /* アニメーションの定義 */
 @keyframes marker-animation {
     0% {
@@ -1735,7 +1825,7 @@ main {
 
 @media screen and (max-width: 968px) {
     .animation {
-        height: 300px;
+        height: 400px;
         margin: 30px 0;
     }
 
@@ -1745,19 +1835,19 @@ main {
     }
 
     .users {
-        bottom: 40px;
-        padding: 0 150px;
+        bottom: 20px;
+        height: 75px;
     }
 
     .user-icon {
-        width: 40px;
-        height: 40px;
+        width: 75px;
+        height: 75px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .animation {
-        height: 200px;
+        height: 300px;
         margin: 20px 0;
     }
 
@@ -1767,13 +1857,13 @@ main {
     }
 
     .users {
-        bottom: 30px;
-        padding: 0 100px;
+        bottom: 10px;
+        height: 60px;
     }
 
     .user-icon {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -1892,6 +1982,26 @@ input, select {
 .social-media-links img:hover {
     transform: scale(1.2);
     opacity: 0.8;
+}
+
+/* Override button style specifically for the download section */
+.download .primary-cta-button {
+    background: #FFFFFF; /* White background */
+    color: var(--primary-color); /* Blue text using variable */
+    border: 2px solid var(--primary-color); /* Optional: Add border for visibility */
+}
+
+.download .primary-cta-button a {
+    color: var(--primary-color); /* Ensure link text is also blue */
+}
+
+/* Optional: Adjust hover effect for the download button */
+.download .primary-cta-button:hover {
+    background: #f0f0f0; /* Slightly darker white on hover */
+    color: var(--primary-color);
+    /* Keep or adjust transform/shadow as desired */
+    /* transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 }
 
 

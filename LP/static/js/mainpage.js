@@ -47,6 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Element with class '.note-stream' not found.");
         return;
     }
+    const usersContainer = document.querySelector('.users'); // Get reference to users container
+    // --- Debug Log --- Check if usersContainer was found
+    if (usersContainer) {
+        console.log("Debug: .users container found:", usersContainer);
+    } else {
+        console.error("Debug: .users container NOT found!");
+    }
+    // --- End Debug Log ---
 
     let noteWidth, noteHeight, noteSpacing;
     let streamWidth, leftUserPosition, rightUserPosition;
@@ -64,11 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let emptyPosition = null;
     let noteCounter = 0;
 
+    const totalNoteImages = 7; // Total number of note images (1 to 7)
+
     function updateLayoutParameters() {
         streamWidth = stream.clientWidth;
         if (streamWidth <= 0) return;
 
-        const visibleNotesEstimate = 8;
+        const visibleNotesEstimate = 6;
         noteSpacing = streamWidth / visibleNotesEstimate;
         noteWidth = noteSpacing * 0.6;
         noteHeight = noteWidth * 1.4;
@@ -79,10 +89,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         leftUserPosition = noteSpacing * 2;
         rightUserPosition = noteSpacing * (visibleNotesEstimate - 2);
-        // Speed calculation is removed as we use setInterval timing
+
+        // Set CSS custom properties for user icon positions
+        if (usersContainer) {
+            // --- Debug Log --- Values being set
+            console.log(`Debug: Setting CSS vars --left-user-pos: ${leftUserPosition}px, --right-user-pos: ${rightUserPosition}px`);
+            // --- End Debug Log ---
+            usersContainer.style.setProperty('--left-user-pos', `${leftUserPosition}px`);
+            usersContainer.style.setProperty('--right-user-pos', `${rightUserPosition}px`);
+            // --- Debug Log --- Confirmation
+            // console.log("Debug: CSS vars set."); // Optional confirmation
+            // --- End Debug Log ---
+        } else {
+            // --- Debug Log --- If container not found when trying to set vars
+            console.warn("Debug: Cannot set CSS vars because .users container was not found earlier.");
+            // --- End Debug Log ---
+        }
     }
 
     function createNote(leftPosition) {
+        // console.log(`Creating note at left: ${leftPosition}`);
         const note = document.createElement('div');
         note.className = 'note';
         note.style.left = `${leftPosition}px`;
@@ -90,6 +116,21 @@ document.addEventListener('DOMContentLoaded', () => {
         note.style.height = `${noteHeight}px`;
         note.style.top = `${streamTopPosition}px`;
         note.dataset.moving = 'true';
+
+        // Determine image number randomly (1 to totalNoteImages)
+        const imageNum = Math.floor(Math.random() * totalNoteImages) + 1;
+        // console.log(` -> Random image number: ${imageNum}`);
+
+        // Create and append the image element
+        const img = document.createElement('img');
+        img.src = `/static/images/mainpage/note_${imageNum}.png`;
+        img.alt = `ノート${imageNum}`;
+        try {
+            note.appendChild(img);
+        } catch (error) {
+            console.error(`Error appending img to note div in createNote:`, error);
+        }
+
         return note;
     }
 
@@ -113,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createInitialNotes() {
         const numberOfNotes = Math.floor(streamWidth / noteSpacing) + 4;
         for (let i = 0; i < numberOfNotes; i++) {
+            // Call createNote without index
             const note = createNote(i * noteSpacing);
             stream.appendChild(note);
         }
@@ -186,8 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
              // Add a new note if there's space on the right
             if (rightmostNoteLeft < streamWidth + noteSpacing) {
                 const newNoteLeft = Math.max(streamWidth, rightmostNoteLeft + noteSpacing);
-                // Avoid adding if a note already exists very close
                 if (!stream.querySelector(`.note[style*="left: ${newNoteLeft}px"]`)){
+                     // Call createNote without index
                     const newNote = createNote(newNoteLeft);
                     stream.appendChild(newNote);
                 }
@@ -198,7 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function riseNewNote() {
         if (stream.querySelector('.note.rising')) return;
 
+        // Call createNote without index - it handles random selection
         const note = createNote(leftUserPosition);
+
         note.classList.add('rising');
         note.dataset.moving = 'false';
         note.style.top = `${streamTopPosition + noteHeight * 0.8}px`;
@@ -225,13 +269,14 @@ document.addEventListener('DOMContentLoaded', () => {
         note.classList.add('dropping');
         note.dataset.moving = 'false';
 
-        const pauseBeforeDrop = 300;
-        const dropDuration = 1000; // Slower drop (was 600)
-        const fadeOutDuration = 2000; // Slower fade out (was 1500)
+        const pauseBeforeDrop = 200;
+        const dropDuration = 800; // Make drop even slower (was 1000)
+        const fadeOutDuration = 1000; // Make fade out even slower (was 2000)
 
         setTimeout(() => {
             note.style.transition = `transform ${dropDuration}ms cubic-bezier(.42,0,.58,1)`;
-            note.style.transform = `translateY(${noteHeight * 1.5}px)`;
+            // Reduce the distance the note drops
+            note.style.transform = `translateY(${noteHeight * 1.1}px)`; // Reduced drop distance (was 1.5)
 
             setTimeout(() => {
                 note.style.transition = `opacity ${fadeOutDuration}ms ease-out`;
