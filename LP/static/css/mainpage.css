@@ -105,8 +105,6 @@ main {
     padding: 80px 0;
 }
 
-
-
 .firstview__container--flex {
     display: flex;
     justify-content: space-between;
@@ -150,7 +148,7 @@ main {
     font-size: 6.4rem;
     font-weight: 800;
     color: var(--text-dark);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     margin-left: -32px;
     line-height: 1.4;
     font-family: 'Zen Kurenaido', sans-serif;
@@ -176,6 +174,7 @@ main {
 .firstview__subtitle .highlight {
     display: inline-block;
     padding: 8px 24px;
+    margin-right: 8px;
     color: var(--text-dark);
     font-weight: bold;
     font-size: 3.2rem;
@@ -194,6 +193,8 @@ main {
     background-color: #FFE975;
     z-index: -1;
 }
+
+
 
 .firstview__image {
     max-width: 500px;
@@ -243,7 +244,7 @@ main {
     font-weight: 500;
 }
 
-.firstview button {
+.primary-cta-button {
     background: var(--primary-gradient);
     color: #FFFFFF;
     padding: 16px 32px;
@@ -256,19 +257,42 @@ main {
     transition: all 0.3s ease;
 }
 
-.firstview button:hover {
+.primary-cta-button:hover {
     opacity: 0.9;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(63, 100, 235, 0.2);
 }
 
-.firstview button a {
+.primary-cta-button a {
     color: #FFFFFF;
     text-decoration: none;
 }
 
-/* モバイル対応の整理 */
+/* メディアクエリの整理 */
 @media screen and (max-width: 968px) {
+    /* ヘッダー */
+    .header {
+        padding: 1.2rem 1.6rem;
+    }
+
+    .nav-container {
+        position: relative;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .logo {
+        font-size: 2.0rem;
+    }
+
+    .cta-button {
+        padding: 1.2rem 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    /* ファーストビュー */
     .firstview__container--flex {
         flex-direction: column;
         padding: 0 24px;
@@ -290,6 +314,7 @@ main {
         width: fit-content;
         font-size: clamp(3.6rem, 8vw, 4.8rem);
         justify-content: center;
+        font-weight: 900;
     }
 
     .firstview__title span {
@@ -299,11 +324,12 @@ main {
     .firstview__subtitle {
         text-align: center;
         font-size: clamp(1.8rem, 4vw, 2.0rem);
-        white-space: normal;
+        white-space: nowrap;
     }
 
     .firstview__subtitle .highlight {
         font-size: clamp(2.0rem, 5vw, 2.4rem);
+        padding: 6px 16px;
     }
 
     .firstview__image {
@@ -318,9 +344,115 @@ main {
         justify-content: center;
         margin-bottom: 16px;
     }
+
+    /* 問題セクション */
+    .introduction__box--flex {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+    }
+
+    .introduction__bullets--column {
+        margin: 0 auto;
+    }
+
+    .introduction__img {
+        width: 100%;
+        max-width: 240px;
+        margin: 0 auto;
+    }
+
+    .bullet__text {
+        font-size: 1.4rem;
+        line-height: 1.4;
+    }
+
+    .bullet__text strong {
+        font-size: 1.8rem;
+        white-space: nowrap;
+    }
+
+    .introduction__bullet-1--flex, 
+    .introduction__bullet-2--flex,
+    .introduction__bullet-3--flex,
+    .introduction__bullet-4--flex {
+        gap: 16px;
+        margin-top: 24px;
+        justify-content: flex-start;
+    }
+
+    .introduction__subhead__context {
+        text-align: center;
+        font-size: 2.0rem;
+        padding: 0 24px;
+    }
+
+    .introduction__subhead__context br {
+        margin-top: 8px;
+    }
+
+    .no-wrap {
+        white-space: nowrap;
+    }
+
+    .bullet__checkmark--flex {
+        margin-right: 16px;
+    }
+
+    /* アニメーション */
+    .animation {
+        height: 360px;
+        margin: 30px 0;
+    }
+
+    .note-stream {
+        top: 40px;
+        height: 80px;
+    }
+
+    .users {
+        bottom: 20px;
+        height: 75px;
+    }
+
+    .user-icon {
+        width: 75px;
+        height: 75px;
+    }
+    .user-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* アバウト */
+    .about-us__content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-us__text {
+        max-width: 100%;
+    }
+
+    .about-us__image {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    /* Reset user positions for tablet/mobile */
+    .user.user-left {
+        left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
+        /* transform: translateX(-50%); Inherited */
+    }
+
+    .user.user-right {
+        left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
+        /* transform: translateX(-50%); Inherited */
+    }
 }
 
 @media screen and (max-width: 480px) {
+    /* ファーストビュー */
     .firstview__container--flex {
         padding: 0 16px;
     }
@@ -339,6 +471,7 @@ main {
 
     .firstview__subtitle .highlight {
         font-size: clamp(1.8rem, 4.5vw, 2.0rem);
+        padding: 4px 12px;
     }
 
     .firstview__image {
@@ -356,6 +489,62 @@ main {
 
     .qr-code p {
         font-size: 1.0rem;
+    }
+
+    /* 問題セクション */
+    .introduction__box--flex {
+        padding: 24px 16px;
+        margin: 0 12px;
+    }
+
+    .introduction__subhead__context {
+        font-size: 1.8rem;
+        padding: 0 16px;
+        text-align: center;
+    }
+
+    /* アニメーション */
+    .animation {
+        height: 200px;
+        margin: 20px 0;
+    }
+
+    .note-stream {
+        top: 30px;
+        height: 60px;
+    }
+
+    .users {
+        bottom: 10px;
+        height: 60px;
+    }
+
+    .user-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* アバウト */
+    .about-us__content {
+        padding: 0 10px 0 10px;
+    }
+
+    .about-us__text p {
+        font-size: 1.4rem;
+    }
+
+    .about-us__image {
+        max-width: 320px;
+    }
+
+    .bullet__text {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+
+    .bullet__text strong {
+        font-size: 1.6rem;
+        white-space: nowrap;
     }
 }
 
@@ -507,15 +696,20 @@ main {
     padding-top: 0;
     position: relative;
     display: inline-block;
+    width: 100%;
+    white-space: normal;
 }
 
 .bullet__text strong {
     position: relative;
     font-weight: 700;
-    font-size: 2.4rem;
+    font-size: 2.4rem;  /* PC版のフォントサイズを元に戻す */
     color: var(--primary-color);
     z-index: 1;
     margin-right: 4px;
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
 }
 
 /* マーカーアニメーションの基本スタイル */
@@ -590,16 +784,21 @@ main {
 
 /* ノートの基本スタイル */
 .note {
-    width: 60px;
-    height: 85px;
-    background-color: white;
-    border: 2px solid var(--primary-color);
-    border-radius: 16px;
+    /* width / height は JS から設定する */
     position: absolute;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    will-change: transform, opacity;
+    background-color: white; /* Keep background for loading fallback */
+    /* border: 2px solid var(--primary-color); */ /* Removed border */
+    /* border-radius: 16px; */ /* Removed border-radius */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Keep shadow? Optional */
+    will-change: transform, opacity, left;
+    /* overflow: hidden; */ /* Removed overflow, no longer needed without border-radius */
 }
-
+.note img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Changed from fit to cover */
+    display: block; /* Remove potential extra space below image */
+}
 .note.rising {
     z-index: 2;
 }
@@ -619,18 +818,41 @@ main {
 /* ユーザーエリア */
 .users {
     position: absolute;
-    bottom: 60px;
+    bottom: 40px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 200px;
+    height: 90px;
+}
+
+.user {
+    position: absolute;
+    top: 0; /* Align top within the .users container */
+}
+
+.user.user-left {
+    left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
+    transform: translateX(-50%); /* Center the element */
+}
+
+.user.user-right {
+    left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
+    transform: translateX(-50%); /* Center the element */
+    /* Alternatively use right: 40% and adjust transform if needed */
 }
 
 .user-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #DDD;
+    width: 90px;
+    height: 90px;
+    /* background-color: #DDD; */ /* Remove background color */
     border-radius: 16px;
+    overflow: hidden; /* Clip the image to the rounded corners */
+}
+
+/* Style for the image inside user-icon */
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the area well */
+    display: block; /* Remove potential extra space */
 }
 
 /* アニメーションクラス */
@@ -677,20 +899,27 @@ main {
 
 .feature__main-title {
     text-align: center;
-    font-size: 2.4rem;
+    font-size: clamp(1.6rem, 2.0vw, 2.4rem);
     font-weight: bold;
     margin-top: 16px;
     margin-bottom: 16px;
     color: var(--text-dark);
+    padding: 0 16px;
+    transition: font-size 0.3s ease;
+    display: flex;
+    align-items: flex-end;  /* 下揃えにする */
+    justify-content: center;
+    gap: 8px;
 }
 
 .feature__main-title span.highlight {
     position: relative;
-    font-size: 3.6rem;
+    font-size: clamp(2.0rem, 2.0vw, 3.6rem);
     display: inline-block;
     padding: 4px 16px;
-    margin: 0 8px;
+    margin: 0;
     z-index: 1;
+    transition: font-size 0.3s ease;
 }
 
 .feature__main-title span.highlight:first-child {
@@ -820,11 +1049,17 @@ main {
     }
 
     .feature__main-title {
-        font-size: 3.6rem;
+        font-size: clamp(2.0rem, 4.0vw, 3.2rem);
+        line-height: 1.6;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
     }
 
-    .feature__subtitle {
-        font-size: 2.0rem;
+    .feature__main-title span.highlight {
+        font-size: clamp(2.4rem, 4.0vw, 3.6rem);
+        padding: 2px 12px;
     }
 
     .introduction__box {
@@ -935,19 +1170,47 @@ main {
     margin: 24px 0;
 }
 
-
 /* レスポンシブ対応 */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1100px) {
     .how-to-use__step {
         flex-direction: column;
         gap: 24px;
         text-align: center;
+        align-items: center;
+    }
+
+    .step__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .step__content h2 {
+        white-space: nowrap;
+        text-align: center;
+        width: 100%;
+    }
+
+    .step__description {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .step__description p {
+        text-align: center;
+        max-width: 80%;
     }
 
     .step__image {
         width: 100%;
         max-width: 320px;
         margin: 0 auto;
+    }
+
+    .step__image img {
+        border-radius: 8px;
     }
 
     .step__number {
@@ -1074,8 +1337,13 @@ main {
     }
 
     .bullet__text {
-        font-size: 1.6rem;
-        text-align: left;  /* テキストは左揃えを維持 */
+        font-size: 1.4rem;
+        line-height: 1.4;
+    }
+
+    .bullet__text strong {
+        font-size: 1.8rem;
+        white-space: nowrap;
     }
 
     .introduction__bullet-1--flex, 
@@ -1211,14 +1479,54 @@ main {
     color: #FFFFFF;
 }
 
+.download .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* コンテナ内の要素を中央揃え */
+}
+
 .download .section__main-title {
     color: #FFFFFF;
+}
+
+/* ダウンロードセクションのタイトル下の線を白に変更 */
+.download .section__main-title::after {
+    background-color: #FFFFFF; /* 中央の線を白に */
+}
+
+.download .section__main-title::before {
+    /* 両端の装飾部分を含む線のグラデーションを白に変更 */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent calc(50% - 35px),
+        #FFFFFF calc(50% - 35px), /* グラデーションの色を白に */
+        #FFFFFF calc(50% + 35px), /* グラデーションの色を白に */
+        transparent calc(50% + 35px),
+        transparent 100%
+    );
 }
 
 .download-description {
     text-align: center;
     font-size: 2.0rem;
     margin-bottom: 3.2rem;
+}
+
+
+.download__image-container {
+    margin-bottom: 3.2rem; /* 画像とボタンの間にスペースを追加 */
+    width: 100%;
+    display: flex; /* flexboxを使用して中央揃え */
+    justify-content: center; /* 水平方向中央揃え */
+}
+
+.download__image-container img {
+    /* max-width: 100%; */ /* Remove or comment out */
+    width: 100%; /* Make width flexible */
+    max-width: 500px; /* Set a maximum size (adjust as needed) */
+    height: auto; /* アスペクト比を維持 */
+    display: block; /* 余分なスペースを取り除く */
 }
 
 .download-buttons {
@@ -1334,6 +1642,11 @@ main {
     padding: 0 2rem;
 }
 
+@media screen and (max-width: 480px) {
+    .download-description {
+        font-size: 1.4rem;
+    }
+}
 /* アニメーションの定義 */
 @keyframes marker-animation {
     0% {
@@ -1387,13 +1700,7 @@ main {
 
 @media screen and (max-width: 768px) {
     .firstview__subtitle span.highlight {
-        padding: 6px 16px;
-        margin: 0 4px;
-        font-size: 2.4rem;
-    }
-
-    .firstview__subtitle span.highlight::after {
-        left: 4px;
+        font-size: 2.0rem;
     }
 }
 
@@ -1519,13 +1826,8 @@ main {
 
 @media screen and (max-width: 968px) {
     .animation {
-        height: 300px;
+        height: 400px;
         margin: 30px 0;
-    }
-
-    .note {
-        width: 50px;
-        height: 70px;
     }
 
     .note-stream {
@@ -1534,25 +1836,20 @@ main {
     }
 
     .users {
-        bottom: 40px;
-        padding: 0 150px;
+        bottom: 20px;
+        height: 75px;
     }
 
     .user-icon {
-        width: 40px;
-        height: 40px;
+        width: 75px;
+        height: 75px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .animation {
-        height: 200px;
+        height: 300px;
         margin: 20px 0;
-    }
-
-    .note {
-        width: 40px;
-        height: 55px;
     }
 
     .note-stream {
@@ -1561,18 +1858,15 @@ main {
     }
 
     .users {
-        bottom: 30px;
-        padding: 0 100px;
+        bottom: 10px;
+        height: 60px;
     }
 
     .user-icon {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
     }
 }
-
-
-
 
 
 
@@ -1669,7 +1963,6 @@ input, select {
 .nav-container .social-media-links {
     display: flex;
     gap: 16px;
-    margin-left: auto;
 }
 
 .nav-container .social-media-links img {
@@ -1690,6 +1983,26 @@ input, select {
 .social-media-links img:hover {
     transform: scale(1.2);
     opacity: 0.8;
+}
+
+/* Override button style specifically for the download section */
+.download .primary-cta-button {
+    background: #FFFFFF; /* White background */
+    color: var(--primary-color); /* Blue text using variable */
+    border: 2px solid var(--primary-color); /* Optional: Add border for visibility */
+}
+
+.download .primary-cta-button a {
+    color: var(--primary-color); /* Ensure link text is also blue */
+}
+
+/* Optional: Adjust hover effect for the download button */
+.download .primary-cta-button:hover {
+    background: #f0f0f0; /* Slightly darker white on hover */
+    color: var(--primary-color);
+    /* Keep or adjust transform/shadow as desired */
+    /* transform: translateY(-2px); */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 }
 
 

@@ -43,176 +43,287 @@ document.addEventListener('DOMContentLoaded', () => {
 // Animation section
 document.addEventListener('DOMContentLoaded', () => {
     const stream = document.querySelector('.note-stream');
-    const streamWidth = 800;
-    const noteSpacing = 100;
-    const rightUserPosition = 600;
-    const leftUserPosition = 200;
+    if (!stream) {
+        console.error("Element with class '.note-stream' not found.");
+        return;
+    }
+    const usersContainer = document.querySelector('.users'); // Get reference to users container
+    // --- Debug Log --- Check if usersContainer was found
+    if (usersContainer) {
+        console.log("Debug: .users container found:", usersContainer);
+    } else {
+        console.error("Debug: .users container NOT found!");
+    }
+    // --- End Debug Log ---
+
+    let noteWidth, noteHeight, noteSpacing;
+    let streamWidth, leftUserPosition, rightUserPosition;
     const streamTopPosition = 0;
-    const moveDuration = 400;
-    const pauseDuration = 2000;
+
+    // --- Animation Control ---
+    const moveDuration = 600; // Duration for the note movement transition (slightly slower)
+    const pauseDuration = 1800; // Pause between movements
     const cycleTime = moveDuration + pauseDuration;
-    let isMoving = false;
+    let animationIntervalId = null; // ID for the main animation interval
+    let noteAdditionIntervalId = null; // ID for the note addition interval
+    let isMoving = false; // Flag to prevent overlap
+
+    // --- State Tracking ---
     let emptyPosition = null;
     let noteCounter = 0;
-    let dropTurnCount = 0;
-    let lastDroppedNote = null;
 
-    // ストリームの初期化時にすべての要素を削除
-    while (stream.firstChild) {
-        stream.removeChild(stream.firstChild);
-    }
+    const totalNoteImages = 7; // Total number of note images (1 to 7)
 
-    function createStreamingNotes() {
-        const numberOfNotes = Math.floor(streamWidth / noteSpacing) + 3;
-        for (let i = 0; i < numberOfNotes; i++) {
-            const note = createNote(i * noteSpacing);
-            stream.appendChild(note);
+    function updateLayoutParameters() {
+        streamWidth = stream.clientWidth;
+        if (streamWidth <= 0) return;
+
+        const visibleNotesEstimate = 6;
+        noteSpacing = streamWidth / visibleNotesEstimate;
+        noteWidth = noteSpacing * 0.6;
+        noteHeight = noteWidth * 1.4;
+
+        noteWidth = Math.max(30, noteWidth);
+        noteHeight = Math.max(42, noteHeight);
+        noteSpacing = Math.max(50, noteSpacing);
+
+        leftUserPosition = noteSpacing * 2;
+        rightUserPosition = noteSpacing * (visibleNotesEstimate - 2);
+
+        // Set CSS custom properties for user icon positions
+        if (usersContainer) {
+            // --- Debug Log --- Values being set
+            console.log(`Debug: Setting CSS vars --left-user-pos: ${leftUserPosition}px, --right-user-pos: ${rightUserPosition}px`);
+            // --- End Debug Log ---
+            usersContainer.style.setProperty('--left-user-pos', `${leftUserPosition}px`);
+            usersContainer.style.setProperty('--right-user-pos', `${rightUserPosition}px`);
+            // --- Debug Log --- Confirmation
+            // console.log("Debug: CSS vars set."); // Optional confirmation
+            // --- End Debug Log ---
+        } else {
+            // --- Debug Log --- If container not found when trying to set vars
+            console.warn("Debug: Cannot set CSS vars because .users container was not found earlier.");
+            // --- End Debug Log ---
         }
-        startAnimation();
     }
 
     function createNote(leftPosition) {
+        // console.log(`Creating note at left: ${leftPosition}`);
         const note = document.createElement('div');
         note.className = 'note';
         note.style.left = `${leftPosition}px`;
-        // データ属性を追加して追跡を容易に
+        note.style.width = `${noteWidth}px`;
+        note.style.height = `${noteHeight}px`;
+        note.style.top = `${streamTopPosition}px`;
         note.dataset.moving = 'true';
+
+        // Determine image number randomly (1 to totalNoteImages)
+        const imageNum = Math.floor(Math.random() * totalNoteImages) + 1;
+        // console.log(` -> Random image number: ${imageNum}`);
+
+        // Create and append the image element
+        const img = document.createElement('img');
+        img.src = `/static/images/mainpage/note_${imageNum}.png`;
+        img.alt = `ノート${imageNum}`;
+        try {
+            note.appendChild(img);
+        } catch (error) {
+            console.error(`Error appending img to note div in createNote:`, error);
+        }
+
         return note;
     }
 
+    function clearAnimationAndNotes() {
+        // Clear intervals
+        if (animationIntervalId) clearInterval(animationIntervalId);
+        if (noteAdditionIntervalId) clearInterval(noteAdditionIntervalId);
+        animationIntervalId = null;
+        noteAdditionIntervalId = null;
+
+        // Remove all notes
+        while (stream.firstChild) {
+            stream.removeChild(stream.firstChild);
+        }
+        // Reset state
+        isMoving = false;
+        emptyPosition = null;
+        noteCounter = 0;
+    }
+
+    function createInitialNotes() {
+        const numberOfNotes = Math.floor(streamWidth / noteSpacing) + 4;
+        for (let i = 0; i < numberOfNotes; i++) {
+            // Call createNote without index
+            const note = createNote(i * noteSpacing);
+            stream.appendChild(note);
+        }
+    }
+
     function startAnimation() {
-        setInterval(() => {
+        // Ensure previous intervals are cleared
+        if (animationIntervalId) clearInterval(animationIntervalId);
+        if (noteAdditionIntervalId) clearInterval(noteAdditionIntervalId);
+
+        animationIntervalId = setInterval(() => {
             if (isMoving) return;
             isMoving = true;
 
             const notes = stream.querySelectorAll('.note[data-moving="true"]');
             notes.forEach(note => {
-                const currentLeft = parseFloat(note.style.left);
-                const newLeft = currentLeft - noteSpacing;
-                
-                note.style.transition = `left ${moveDuration}ms ease-in-out`;
+                let currentLeft = parseFloat(note.style.left);
+                let newLeft = currentLeft - noteSpacing; // Move by one full spacing
 
-                if (newLeft < -noteSpacing) {
-                    note.remove();
-                } else {
-                    note.style.left = `${newLeft}px`;
-                }
+                note.style.transition = `left ${moveDuration}ms ease-in-out`;
+                note.style.left = `${newLeft}px`;
+
+                // Remove notes fully off-screen after transition likely completes
+                // Use a timeout slightly longer than moveDuration
+                setTimeout(() => {
+                     if (newLeft < -noteWidth * 1.5) {
+                         // Check if the note still exists before removing
+                        if (note.parentNode === stream) {
+                            note.remove();
+                        }
+                    }
+                 }, moveDuration + 100); // Add buffer
             });
 
+            // Handle the empty position shift
             if (emptyPosition !== null) {
                 emptyPosition -= noteSpacing;
-                
-                // 空いている位置が左のユーザーの上に来たら新しいノートを追加
-                if (Math.abs(emptyPosition - leftUserPosition) < noteSpacing/2) {
+                // Check if the gap reached the rise position
+                if (Math.abs(emptyPosition - leftUserPosition) < noteSpacing / 2) {
                     riseNewNote();
                     emptyPosition = null;
                 }
-                
-                if (emptyPosition < -noteSpacing) {
+                // Reset if gap moves off screen
+                if (emptyPosition < -noteSpacing * 2) {
                     emptyPosition = null;
                 }
             }
 
+            // After move duration, allow next move and check for drops
             setTimeout(() => {
+                // It's crucial to re-query notes that might have been added/removed
                 const currentNotes = stream.querySelectorAll('.note[data-moving="true"]');
                 currentNotes.forEach(note => {
+                    // Remove transition for instant position update next cycle if needed
                     note.style.transition = 'none';
+                    // Check for drop position after movement completes
+                    checkForDrop(note);
                 });
                 isMoving = false;
-                checkForDrop();
             }, moveDuration);
 
         }, cycleTime);
 
-        // 右端のノート補充
-        setInterval(() => {
-            if (isMoving) return;
-            const rightmostNote = Array.from(stream.querySelectorAll('.note'))
-                .reduce((max, note) => {
-                    const left = parseFloat(note.style.left);
-                    return left > max ? left : max;
-                }, -noteSpacing);
+        // Interval for adding new notes from the right
+        noteAdditionIntervalId = setInterval(() => {
+             if (isMoving) return; // Don't add if animation is in progress
 
-            if (rightmostNote < streamWidth) {
-                const newNote = createNote(streamWidth);
-                stream.appendChild(newNote);
+            const rightmostNoteLeft = Array.from(stream.querySelectorAll('.note'))
+                .reduce((max, note) => Math.max(max, parseFloat(note.style.left)), -Infinity);
+
+             // Add a new note if there's space on the right
+            if (rightmostNoteLeft < streamWidth + noteSpacing) {
+                const newNoteLeft = Math.max(streamWidth, rightmostNoteLeft + noteSpacing);
+                if (!stream.querySelector(`.note[style*="left: ${newNoteLeft}px"]`)){
+                     // Call createNote without index
+                    const newNote = createNote(newNoteLeft);
+                    stream.appendChild(newNote);
+                }
             }
-        }, cycleTime / 2);
+        }, cycleTime / 1.5); // Add notes slightly more often than the main cycle
     }
 
     function riseNewNote() {
+        if (stream.querySelector('.note.rising')) return;
+
+        // Call createNote without index - it handles random selection
         const note = createNote(leftUserPosition);
+
         note.classList.add('rising');
         note.dataset.moving = 'false';
-        
-        // 最初から合流位置の高さ+100pxの位置に配置
-        note.style.left = `${leftUserPosition}px`;
-        note.style.top = `${streamTopPosition +150}px`;
+        note.style.top = `${streamTopPosition + noteHeight * 0.8}px`;
         note.style.opacity = '0';
         stream.appendChild(note);
 
-        // まずはその場でフェードインのみ
-        const fadeInDuration = 1800;
-        note.style.transition = `opacity ${fadeInDuration}ms ease-out`;
-        note.style.opacity = '1';
+        const riseDuration = 800;
+        const fadeInDelay = 200;
 
-        // 合流のタイミングで上昇
         setTimeout(() => {
-            const riseDuration = 600;
-            note.style.transition = `top ${riseDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+            note.style.transition = `top ${riseDuration}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${riseDuration * 0.8}ms ease-out`;
             note.style.top = `${streamTopPosition}px`;
+            note.style.opacity = '1';
 
             setTimeout(() => {
                 note.style.transition = 'none';
                 note.classList.remove('rising');
                 note.dataset.moving = 'true';
             }, riseDuration);
-        }, 240);
+        }, fadeInDelay);
     }
 
     function dropNote(note) {
         note.classList.add('dropping');
         note.dataset.moving = 'false';
-        
-        const pauseDuration = 500;
-        const dropDuration = 600;
-        const fadeOutDuration = 2400;
+
+        const pauseBeforeDrop = 200;
+        const dropDuration = 800; // Make drop even slower (was 1000)
+        const fadeOutDuration = 1000; // Make fade out even slower (was 2000)
 
         setTimeout(() => {
-            note.style.transition = `transform ${dropDuration}ms cubic-bezier(.17,.67,.83,.67)`;
-            note.style.transform = 'translateY(150px)';
-            
-            // 落下後すぐにフェードアウト開始
+            note.style.transition = `transform ${dropDuration}ms cubic-bezier(.42,0,.58,1)`;
+            // Reduce the distance the note drops
+            note.style.transform = `translateY(${noteHeight * 1.1}px)`; // Reduced drop distance (was 1.5)
+
             setTimeout(() => {
-                note.style.transition = `all ${fadeOutDuration}ms ease-out`;
+                note.style.transition = `opacity ${fadeOutDuration}ms ease-out`;
                 note.style.opacity = '0';
-                note.style.transform += ' translateY(20px)';
-                
                 setTimeout(() => {
-                    note.remove();
+                    // Ensure note still exists before removing
+                    if(note.parentNode === stream) {
+                        note.remove();
+                    }
                 }, fadeOutDuration);
-            }, dropDuration);
-        }, pauseDuration);
+            }, dropDuration / 2);
+        }, pauseBeforeDrop);
     }
 
-    function checkForDrop() {
-        if (isMoving) return;
+    // Check for drop condition for a specific note (called after movement)
+    function checkForDrop(note) {
+         // Ensure the note is still supposed to be moving and hasn't been dropped/risen
+         if (note.dataset.moving !== 'true') return;
 
-        const notes = stream.querySelectorAll('.note[data-moving="true"]');
-        notes.forEach(note => {
-            const currentLeft = parseFloat(note.style.left);
-            if (Math.abs(currentLeft - rightUserPosition) < noteSpacing/2) {
-                noteCounter++;
-                
-                // 4ノートごとに離脱
-                if (noteCounter % 4 === 1) {
-                    emptyPosition = currentLeft;
-                    dropNote(note);
-                }
-            }
-        });
+         let currentLeft = parseFloat(note.style.left);
+
+         // Check if the note is at the drop position
+         if (Math.abs(currentLeft - rightUserPosition) < noteSpacing / 2) {
+             noteCounter++;
+             if (noteCounter % 4 === 1) {
+                 emptyPosition = currentLeft;
+                 dropNote(note);
+             }
+        }
     }
 
-    // 初期化
-    createStreamingNotes();
+    function initializeAnimation() {
+        clearAnimationAndNotes();
+        updateLayoutParameters();
+        if (streamWidth > 0) {
+            createInitialNotes();
+            startAnimation();
+        }
+    }
+
+    initializeAnimation();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            initializeAnimation();
+        }, 250);
+    });
 });

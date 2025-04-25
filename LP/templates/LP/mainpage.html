@@ -19,7 +19,7 @@
             <a href="https://www.instagram.com/notemo_osaka_sumire/" target="_blank" rel="noopener noreferrer"><img src="{% static 'images/mainpage/instagram-icon.png' %}" alt="Instagram"></a>
         </div>
         <div class="header-cta">
-            <a href="#download" class="cta-button">無料お試し</a>
+            <a href="https://testflight.apple.com/join/AZqgdu3z" class="cta-button">無料お試し</a>
         </div>
     </nav>
 </header>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="firstview__cta">
                     <div class="cta-button-wrapper">
-                        <button><a href="#">今すぐ始める</a></button>
+                        <button class="primary-cta-button"><a href="https://testflight.apple.com/join/AZqgdu3z">今すぐ始める</a></button>
                     </div>
                     <div class="qr-code">
                         <img src="{% static 'images/mainpage/qr-code.png' %}" alt="アプリダウンロード用QRコード" width="100" height="100">
@@ -74,7 +74,7 @@
         <div class="introduction__subhead--flex">
             <h2 class="introduction__subhead__context">
                 <span>阪大生</span>の皆さん<br>
-                こんな <span class="highlight">お悩み</span> ありませんか？
+                こんな <span class="highlight">お悩み</span><span class="no-wrap">ありませんか？</span>
             </h2>
         </div>
         <div class="introduction__box--flex">
@@ -131,16 +131,16 @@
             <div class="note"></div>
             <div class="note"></div>
         </div>
+    </div>
         <!-- ユーザーエリア -->
         <div class="users">
             <div class="user user-left">
-                <div class="user-icon"></div>
+                <div class="user-icon"><img src="{% static 'images/mainpage/user-icon1.png' %}" alt="ユーザーアイコン"></div>
             </div>
             <div class="user user-right">
-                <div class="user-icon"></div>
+                <div class="user-icon"><img src="{% static 'images/mainpage/user-icon2.png' %}" alt="ユーザーアイコン"></div>
             </div>
         </div>
-    </div>
 </section>
 
 <!-- feature -->
@@ -171,7 +171,7 @@
                     </div>
                     <p class="point__label">POINT 03</p>
                     <h3 class="point__title">阪大生専用の<br>学習プラットフォーム</h3>
-                    <p class="point__description">阪大生限定だから、自分の欲しいノートが見つけやすい。全く同じ講義ノートが見つかるかも！</p>
+                    <p class="point__description">阪大生限定だから、自分の欲しいノートが見つけやすい　全く同じ講義ノートが見つかるかも！</p>
                 </div>
             </div>
         </div>
@@ -189,9 +189,9 @@
                             <p>1</p>
                         </div>
                         <div class="step__content">
-                            <h2><strong>ノートをシェア</strong>して<br>ポイントget</h2>
+                            <h2><strong>ノートをシェア</strong>して<br>ポイントをゲット</h2>
                             <div class="step__description">
-                                <p>ノートをアップロードしてポイントゲット！自分に必要な分だけポイントをノートに交換。まとめノートから1講義分まで。</p>
+                                <p>ノートをアップロードしてポイントゲット！自分に必要な分だけポイントをノートに交換　まとめノートから1講義分まで</p>
                             </div>
                         </div>
                         <div class="step__image">
@@ -206,7 +206,7 @@
                         <div class="step__content">
                             <h2>条件検索から<br><strong>ノートを見つけて</strong><br>ダウンロード</h2>
                             <div class="step__description">
-                                <p>自分の学部、学科、授業名などから必要なノートを検索、閲覧可能。自分と同じ授業のノートが手に入る</p>
+                                <p>自分の学部、学科、授業名などから必要なノートを検索、閲覧可能　自分と同じ授業のノートが手に入る</p>
                             </div>
                         </div>
                         <div class="step__image">
@@ -254,6 +254,7 @@
                         <a href="https://x.com/osaka89466" target="_blank" rel="noopener noreferrer"><img src="{% static 'images/mainpage/x-icon.png' %}" alt="X"></a>
                         <a href="https://www.instagram.com/notemo_osaka_sumire/" target="_blank" rel="noopener noreferrer"><img src="{% static 'images/mainpage/instagram-icon.png' %}" alt="Instagram"></a>
                     </div>
+                </div>
                 <div class="about-us__image">
                     <img src="{% static 'images/mainpage/about-us.jpg' %}" alt="チームの写真" width="400" height="300">
                 </div>
@@ -266,10 +267,13 @@
         <div class="container">
             <h2 class="section__main-title">今すぐ始めよう</h2>
             <p class="download-description">阪大生の学習をもっと効率的に、もっと楽しく</p>
+            <div class="download__image-container"><img src="{% static 'images/mainpage/download__image.png' %}" alt="ダウンロード画面"></div>
             <div class="download-buttons">
-                <a href="#" class="app-store-button">
-                    <img src="{% static 'images/mainpage/app-store-badge.svg' %}" alt="App Storeでダウンロード">
-                </a>
+                <div class="app-store-button">
+                    <div class="cta-button-wrapper">
+                        <button class="primary-cta-button"><a href="https://testflight.apple.com/join/AZqgdu3z">今すぐ始める</a></button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
