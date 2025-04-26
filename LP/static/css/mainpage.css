@@ -441,13 +441,13 @@ main {
 
     /* Reset user positions for tablet/mobile */
     .user.user-left {
-        left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
-        /* transform: translateX(-50%); Inherited */
+        left: 33.33%; /* ノートの合流位置の真下に配置 */
+        transform: translateX(-50%);
     }
 
     .user.user-right {
-        left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
-        /* transform: translateX(-50%); Inherited */
+        left: 66.67%; /* ノートの離脱位置の真下に配置 */
+        transform: translateX(-50%);
     }
 }
 
@@ -829,30 +829,28 @@ main {
 }
 
 .user.user-left {
-    left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
-    transform: translateX(-50%); /* Center the element */
+    left: 33.33%; /* ノートの合流位置の真下に配置 */
+    transform: translateX(-50%);
 }
 
 .user.user-right {
-    left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
-    transform: translateX(-50%); /* Center the element */
-    /* Alternatively use right: 40% and adjust transform if needed */
+    left: 66.67%; /* ノートの離脱位置の真下に配置 */
+    transform: translateX(-50%);
 }
 
 .user-icon {
-    width: 90px;
-    height: 90px;
-    /* background-color: #DDD; */ /* Remove background color */
+    width: 120px;  /* PC版のサイズを大きく */
+    height: 120px;  /* PC版のサイズを大きく */
     border-radius: 16px;
-    overflow: hidden; /* Clip the image to the rounded corners */
+    overflow: hidden;
 }
 
 /* Style for the image inside user-icon */
 .user-icon img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure image covers the area well */
-    display: block; /* Remove potential extra space */
+    object-fit: cover;
+    display: block;
 }
 
 /* アニメーションクラス */
