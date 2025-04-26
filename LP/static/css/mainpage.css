@@ -435,18 +435,19 @@ main {
     }
 
     .about-us__image {
-        width: 100%;
+        margin-left: 0;
+        margin-top: 40px;
         max-width: 400px;
     }
 
     /* Reset user positions for tablet/mobile */
     .user.user-left {
-        left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
+        /* left: var(--left-user-pos, 30%); */ /* Use JS variable, fallback to 30% */
         /* transform: translateX(-50%); Inherited */
     }
 
     .user.user-right {
-        left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
+        /* left: var(--right-user-pos, 70%); */ /* Use JS variable, fallback to 70% */
         /* transform: translateX(-50%); Inherited */
     }
 }
@@ -534,6 +535,7 @@ main {
     }
 
     .about-us__image {
+        min-width: 240px;
         max-width: 320px;
     }
 
@@ -776,10 +778,16 @@ main {
 
 .animation__container {
     position: relative;
-    max-width: 800px;
+    max-width: 75%;
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
+}
+
+@media screen and (max-width: 480px) {
+    .animation__container {
+        max-width: 95%;
+    }
 }
 
 /* ノートの基本スタイル */
@@ -825,34 +833,30 @@ main {
 
 .user {
     position: absolute;
-    top: 0; /* Align top within the .users container */
+    top: 0;
+    transform: translateX(-50%);
 }
 
 .user.user-left {
-    left: var(--left-user-pos, 30%); /* Use JS variable, fallback to 30% */
-    transform: translateX(-50%); /* Center the element */
+    left: 30%;  /* 左側のユーザーを30%の位置に */
 }
 
 .user.user-right {
-    left: var(--right-user-pos, 70%); /* Use JS variable, fallback to 70% */
-    transform: translateX(-50%); /* Center the element */
-    /* Alternatively use right: 40% and adjust transform if needed */
+    left: 70%;  /* 右側のユーザーを70%の位置に */
 }
 
 .user-icon {
     width: 90px;
     height: 90px;
-    /* background-color: #DDD; */ /* Remove background color */
     border-radius: 16px;
-    overflow: hidden; /* Clip the image to the rounded corners */
+    overflow: hidden;
 }
 
-/* Style for the image inside user-icon */
 .user-icon img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure image covers the area well */
-    display: block; /* Remove potential extra space */
+    object-fit: cover;
+    display: block;
 }
 
 /* アニメーションクラス */
@@ -1716,11 +1720,14 @@ main {
     align-items: center;
     gap: 40px;
     margin-top: 40px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-us__text {
     flex: 1;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 .about-us__text p {
@@ -1735,16 +1742,18 @@ main {
 }
 
 .about-us__image {
-    width: 400px;
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 400px;
+    max-width: 600px;
+    margin-left: 40px;
 }
 
 .about-us__image img {
     width: 100%;
     height: auto;
+    object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
 }
 
 /* レスポンシブ対応 */
@@ -1752,6 +1761,7 @@ main {
     .about-us__content {
         flex-direction: column;
         text-align: center;
+        max-width: 800px;
     }
 
     .about-us__text {
@@ -1759,20 +1769,21 @@ main {
     }
 
     .about-us__image {
-        width: 100%;
-        max-width: 400px;
+        margin-left: 0;
+        margin-top: 40px;
+        min-width: 300px;
+        max-width: 500px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .about-us__content {
-        padding: 0 10px 0 10px;
-    }
-    .about-us__text p {
-        font-size: 1.4rem;
+        max-width: 100%;
+        padding: 0 20px;
     }
 
     .about-us__image {
+        min-width: 240px;
         max-width: 320px;
     }
 }
@@ -1798,9 +1809,11 @@ main {
 }
 
 .service-banner__logo {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
+    color: #FFFFFF;
+    font-family: 'Zen Kurenaido', sans-serif;
+    font-size: 3.6rem;
+    font-weight: 700;
+    margin-right: 16px;
 }
 
 .service-banner__text {
@@ -1844,6 +1857,10 @@ main {
         width: 75px;
         height: 75px;
     }
+
+    .service-banner__logo {
+        font-size: 2.8rem;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -1865,6 +1882,14 @@ main {
     .user-icon {
         width: 60px;
         height: 60px;
+    }
+
+    .service-banner__logo {
+        font-size: 2.4rem;
+    }
+
+    .service-banner__content {
+        gap: 8px;
     }
 }
 
