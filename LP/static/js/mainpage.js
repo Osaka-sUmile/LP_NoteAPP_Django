@@ -87,23 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
         noteHeight = Math.max(42, noteHeight);
         noteSpacing = Math.max(50, noteSpacing);
 
-        leftUserPosition = noteSpacing * 2;
-        rightUserPosition = noteSpacing * (visibleNotesEstimate - 2);
+        // ノートの配置とユーザーアイコンの位置を計算
+        const centerPosition = streamWidth / 2;
+        leftUserPosition = centerPosition - noteSpacing * 2;  // 左から3番目のノートの位置
+        rightUserPosition = centerPosition + noteSpacing * 1;  // 右から3番目のノートの位置
 
         // Set CSS custom properties for user icon positions
         if (usersContainer) {
-            // --- Debug Log --- Values being set
-            console.log(`Debug: Setting CSS vars --left-user-pos: ${leftUserPosition}px, --right-user-pos: ${rightUserPosition}px`);
-            // --- End Debug Log ---
             usersContainer.style.setProperty('--left-user-pos', `${leftUserPosition}px`);
             usersContainer.style.setProperty('--right-user-pos', `${rightUserPosition}px`);
-            // --- Debug Log --- Confirmation
-            // console.log("Debug: CSS vars set."); // Optional confirmation
-            // --- End Debug Log ---
-        } else {
-            // --- Debug Log --- If container not found when trying to set vars
-            console.warn("Debug: Cannot set CSS vars because .users container was not found earlier.");
-            // --- End Debug Log ---
         }
     }
 
@@ -250,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stream.appendChild(note);
 
         const riseDuration = 800;
-        const fadeInDelay = 200;
+        const fadeInDelay = 400;
 
         setTimeout(() => {
             note.style.transition = `top ${riseDuration}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${riseDuration * 0.8}ms ease-out`;
