@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Create and append the image element
         const img = document.createElement('img');
-        img.src = `/static/images/mainpage/note_${imageNum}.png`;
+        img.src = `images/mainpage/note_${imageNum}.png`;
         img.alt = `ノート${imageNum}`;
         try {
             note.appendChild(img);
